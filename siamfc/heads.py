@@ -20,7 +20,7 @@ class SiamFC(nn.Module):
         # fast cross correlation
         nz = z.size(0)
         nx, c, h, w = x.size()
-        x = x.view(-1, nz * c, h, w)
+        x = x.reshape(-1, nz * c, h, w)
         out = F.conv2d(x, z, groups=nz)
         out = out.view(nx, -1, out.size(-2), out.size(-1))
         return out

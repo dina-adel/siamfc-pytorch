@@ -93,6 +93,7 @@ def crop_and_resize(img, center, size, out_size,
                     border_type=cv2.BORDER_CONSTANT,
                     border_value=(0, 0, 0),
                     interp=cv2.INTER_LINEAR):
+    img = np.array(img)
     # convert box to corners (0-indexed)
     size = round(size)
     corners = np.concatenate((

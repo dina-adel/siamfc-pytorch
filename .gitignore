@@ -1,7 +1,13 @@
 .*
 *.py[cod]
+*.log
 __pycache__/
 results/
 reports/
 cache/
+tools/pretrained/
+tools/reports/
+tools/results/
+pretrained/
+checkpoints/
 !.gitignore

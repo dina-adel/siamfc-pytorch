@@ -38,7 +38,7 @@ class BalancedLoss(nn.Module):
         weight = target.new_zeros(target.size())
         weight[pos_mask] = 1 / pos_num
         weight[neg_mask] = 1 / neg_num * self.neg_weight
-        weight /= weight.sum()
+        weight = weight/weight.sum()
         return F.binary_cross_entropy_with_logits(
             input, target, weight, reduction='sum')
 
