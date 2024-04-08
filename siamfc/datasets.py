@@ -9,8 +9,7 @@ __all__ = ['Pair']
 
 class Pair(Dataset):
 
-    def __init__(self, seqs, transforms=None,
-                 pairs_per_seq=1):
+    def __init__(self, seqs, transforms=None, pairs_per_seq=1):
         super(Pair, self).__init__()
 
         print("Dataset Class is initialized for the First Time :)")

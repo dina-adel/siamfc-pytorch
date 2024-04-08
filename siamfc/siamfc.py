@@ -15,13 +15,13 @@ from torch.utils.data import DataLoader
 from got10k.trackers import Tracker
 
 from . import ops
-from .backbones import AlexNetV1, AlexNetV2, AlexNetV3
+from .backbones import *
 from .heads import SiamFC
 from .losses import BalancedLoss
 from .datasets import Pair
 from .transforms import SiamFCTransforms
 
-__all__ = ['TrackerSiamFC']
+__all__ = ['TrackerSiamFC', 'Net']
 
 
 class Net(nn.Module):
@@ -49,7 +49,7 @@ class TrackerSiamFC(Tracker):
 
         # setup model
         self.net = Net(
-            backbone=AlexNetV2(),
+            backbone=RecurrentModel(),
             head=SiamFC(self.cfg.out_scale))
         ops.init_weights(self.net)
 
@@ -95,9 +95,9 @@ class TrackerSiamFC(Tracker):
             # train parameters
             'epoch_num': 50,
             'batch_size': 8,
-            'num_workers': 0,
-            'initial_lr': 1e-2,
-            'ultimate_lr': 1e-5,
+            'num_workers': 11,
+            'initial_lr': 1e-4,
+            'ultimate_lr': 1e-6,
             'weight_decay': 5e-4,
             'momentum': 0.9,
             'r_pos': 16,
@@ -264,7 +264,7 @@ class TrackerSiamFC(Tracker):
 
     @torch.enable_grad()
     def train_over(self, seqs, val_seqs=None,
-                   save_dir='pretrained/v2/with_gru'):
+                   save_dir='pretrained/recurrentVanilla'):
         # set to train mode
         self.net.train()
 

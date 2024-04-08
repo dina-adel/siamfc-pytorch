@@ -111,9 +111,16 @@ class SiamFCTransforms(object):
     
     def __call__(self, z, x, box_z, box_x):
         z = self._crop(z, box_z, self.instance_sz)
-        x = self._crop(x, box_x, self.instance_sz)
         z = self.transforms_z(z)
-        x = self.transforms_x(x)
+
+        if type(x) != list:
+            x = self._crop(x, box_x, self.instance_sz)
+            x = self.transforms_x(x)
+        else:
+            x[0] = self._crop(x[0], box_x, self.instance_sz)
+            x[1] = self._crop(x[1], box_x, self.instance_sz)
+            x[0] = self.transforms_x(x[0])
+            x[1] = self.transforms_x(x[1])
         return z, x
     
     def _crop(self, img, box, out_size):

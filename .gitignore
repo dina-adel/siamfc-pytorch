@@ -7,6 +7,7 @@ reports/
 cache/
 tools/pretrained/
 tools/reports/
+tools/data/
 tools/results/
 pretrained/
 checkpoints/
